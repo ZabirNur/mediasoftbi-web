@@ -9,8 +9,8 @@ const StyledNavBar = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
   border-bottom: 1px solid silver;
 `
 

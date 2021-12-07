@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 
 const StyledProductName = styled.div`
-  font-size: 1.5rem;
+  font-size: 2rem;
   user-select: none;
 `
 
@@ -57,8 +57,8 @@ const StyledHeaderBar = styled.header`
   justify-content: space-between;
   align-items: center;
   height: 60px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
   border-bottom: 1px solid silver;
 `
 
