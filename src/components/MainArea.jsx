@@ -6,6 +6,7 @@ import VisualizationBox from "./VisualizationBox"
 const StyledMainArea = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
+  height: 100%;
 `
 
 export default () => {
