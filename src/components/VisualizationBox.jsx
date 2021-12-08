@@ -3,6 +3,8 @@ import { LineChart, Line } from 'recharts'
 
 import ChartContainer from './ChartContainer'
 import InsightContainer from './InsightContainer'
+import KeyFigureContainer from './KeyFigureContainer'
+import LineChartVis from '../charts/LineChartVis'
 
 const StyledVisualizationBox = styled.div`
   display: flex;
@@ -51,10 +53,15 @@ export default () => {
         <Line type="monotone" dataKey="expense" stroke="red"/>
       </LineChart> */}
 
-      <ChartContainer/>
+      <ChartContainer>
+        <LineChartVis/>
+      </ChartContainer>
       <InsightContainer/>
       <ChartContainer prediction/>
-      <ChartContainer/>
+      <KeyFigureContainer
+        description="Weekend sales as % of total sales"
+        keyfigure="75%"
+      />
       <InsightContainer/>
       <ChartContainer/>
     </StyledVisualizationBox>
