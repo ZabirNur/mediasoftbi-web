@@ -44,26 +44,37 @@ const data = [
   },
 ]
 
+const insights = [
+  "Vegetables outsold meat by Tk. 12,300 in total sales amount",
+  "Peak vegetable sales happened at 6:00 PM while peak meat sales happened at 12:00 PM",
+  "Peak sales of vegetables was higher than peak sales of meat by Tk. 6,100"
+]
 
 export default () => {
   return (
     <StyledVisualizationBox>
-      {/* <LineChart width={200} height={200} data={data}>
-        <Line type="monotone" dataKey="revenue" stroke="green"/>
-        <Line type="monotone" dataKey="expense" stroke="red"/>
-      </LineChart> */}
 
       <ChartContainer>
         <LineChartVis/>
       </ChartContainer>
-      <InsightContainer/>
+
+      <InsightContainer
+        insights={insights}
+      />
+
       <ChartContainer prediction/>
+
       <KeyFigureContainer
         description="Weekend sales as % of total sales"
         keyfigure="75%"
       />
-      <InsightContainer/>
+
+      <InsightContainer
+        insights={insights}
+      />
+
       <ChartContainer/>
+
     </StyledVisualizationBox>
   )
 }

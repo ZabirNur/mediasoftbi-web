@@ -44,7 +44,7 @@ export default ({children, prediction=false}) => {
   return (
     <StyledChartContainer prediction={prediction}>
       <StyledChartHeader>
-        <span>Cash vs Card usage by time of day</span>
+        <span>Meat vs Vegetable sales by time of day</span>
         {prediction && <PredictionHeader/>}
       </StyledChartHeader>
       <StyledChartBody>

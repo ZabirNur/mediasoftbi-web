@@ -17,25 +17,44 @@ const StyledInsightsHeader = styled.div`
 `
 
 
-const StyledInsightsList = styled.div`
+const StyledInsightsListContainer = styled.div`
   padding-left: 10px;
   padding-right: 10px;
+  padding-top: 10px;
 `
 
-export default () => {
+const StyledInsightsList = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  /* list-style-position: inside; */
+`
+
+const StyledInsightLine = styled.li`
+  margin-top: 15px;
+`
+
+export default ({insights}) => {
   return (
     <StyledInsightContainer>
       <StyledInsightsHeader>
         Key Insights
       </StyledInsightsHeader>
       
-      <StyledInsightsList>
-        <ul>
-          <li>Insight 1</li>
-          <li>Insight 2</li>
-          <li>Insight 3</li>
-        </ul>
-      </StyledInsightsList>
+      <StyledInsightsListContainer>
+        <StyledInsightsList>
+          {insights.map(insight => <StyledInsightLine>{insight}</StyledInsightLine>)}
+          {/* <StyledInsightLine>
+            Vegetables outsold meat by Tk. 12,300 in total sales amount
+          </StyledInsightLine>
+          <StyledInsightLine>
+            Peak vegetable sales happened at 6:00 PM while peak meat sales happened at 12:00 PM
+          </StyledInsightLine>
+          <StyledInsightLine>
+            Peak sales of vegetables was higher than peak sales of meat by Tk. 6,100
+          </StyledInsightLine> */}
+        </StyledInsightsList>
+      </StyledInsightsListContainer>
     </StyledInsightContainer>
   )
 }
