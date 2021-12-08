@@ -1,4 +1,18 @@
+import styled from 'styled-components'
 import { LineChart, Line } from 'recharts'
+
+import ChartContainer from './ChartContainer'
+import InsightContainer from './InsightContainer'
+
+const StyledVisualizationBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 30px;
+`
+
+
+
 
 const data = [
   {
@@ -31,11 +45,18 @@ const data = [
 
 export default () => {
   return (
-    <div>
-      <LineChart width={200} height={200} data={data}>
+    <StyledVisualizationBox>
+      {/* <LineChart width={200} height={200} data={data}>
         <Line type="monotone" dataKey="revenue" stroke="green"/>
         <Line type="monotone" dataKey="expense" stroke="red"/>
-      </LineChart>
-    </div>
+      </LineChart> */}
+
+      <ChartContainer/>
+      <InsightContainer/>
+      <ChartContainer prediction/>
+      <ChartContainer/>
+      <InsightContainer/>
+      <ChartContainer/>
+    </StyledVisualizationBox>
   )
 }
