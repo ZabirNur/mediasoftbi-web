@@ -1,30 +1,15 @@
 import styled from 'styled-components'
 
+import VisContainerHeader from './VisContainerHeader'
+
 const StyledChartContainer = styled.div`
   width: 400px;
   height: 400px;
   border: ${props => props.prediction ? "3px solid limegreen" : "1px solid silver"};
   border-radius: 5px;
-  /* position: relative; */
   display: grid;
   grid-template-rows: 2rem auto;
 `
-
-const StyledPredictionHeader = styled.span`
-  /* position: absolute;
-  right: 5px;
-  top: 5px; */
-  color: silver;
-  letter-spacing: 2px;
-`
-
-const PredictionHeader = () => {
-  return (
-    <StyledPredictionHeader>
-      PREDICTION
-    </StyledPredictionHeader>
-  )
-}
 
 const StyledChartHeader = styled.div`
   display: flex;
@@ -40,16 +25,25 @@ const StyledChartBody = styled.div`
   align-items: center;
 `
 
-export default ({children, prediction=false}) => {
+export default ({title, chart, prediction=false}) => {
   return (
     <StyledChartContainer prediction={prediction}>
+
       <StyledChartHeader>
-        <span>Meat vs Vegetable sales by time of day</span>
-        {prediction && <PredictionHeader/>}
+        <span>
+          {title}
+        </span>
+
+        {prediction
+          ? <VisContainerHeader title="Prediction"/>
+          : <VisContainerHeader title="Report" />
+        }
       </StyledChartHeader>
+
       <StyledChartBody>
-        {children}
+        {chart}
       </StyledChartBody>
+
     </StyledChartContainer>
   )
 }

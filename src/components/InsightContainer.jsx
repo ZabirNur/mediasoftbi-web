@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import VisContainerHeader from './VisContainerHeader'
+
 const StyledInsightContainer = styled.div`
   width: 300px;
   height: 400px;
@@ -12,8 +14,9 @@ const StyledInsightContainer = styled.div`
 const StyledInsightsHeader = styled.div`
   padding-left: 10px;
   padding-right: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
 `
 
 
@@ -38,7 +41,7 @@ export default ({insights}) => {
   return (
     <StyledInsightContainer>
       <StyledInsightsHeader>
-        Key Insights
+        <VisContainerHeader title="Insights"/>
       </StyledInsightsHeader>
       
       <StyledInsightsListContainer>

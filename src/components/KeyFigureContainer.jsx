@@ -1,31 +1,24 @@
 import styled from 'styled-components'
 
+import VisContainerHeader from './VisContainerHeader'
+
 const StyledKeyFigureContainer = styled.div`
   width: 400px;
   height: 400px;
-  border: ${props => props.prediction ? "3px solid limegreen" : "1px solid silver"};
+  border: 1px solid silver;
   border-radius: 5px;
   position: relative;
+  display: grid;
+  grid-template-rows: 2rem auto;
+`
+
+const StyledChartHeader = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
 `
-
-const StyledPredictionHeader = styled.span`
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  color: silver;
-  letter-spacing: 2px;
-`
-
-const PredictionHeader = () => {
-  return (
-    <StyledPredictionHeader>
-      PREDICTION
-    </StyledPredictionHeader>
-  )
-}
 
 const StyledKeyFigureHighlight = styled.div`
   display: flex;
@@ -54,14 +47,19 @@ const KeyFigureDetails = ({description, keyfigure}) => {
   )
 }
 
-export default ({description, keyfigure, prediction=false}) => {
+export default ({description, keyfigure}) => {
   return (
-    <StyledKeyFigureContainer prediction={prediction}>
-      {prediction && <PredictionHeader/>}
+    <StyledKeyFigureContainer>
+      
+      <StyledChartHeader>
+        <VisContainerHeader title="Key Figure"/>
+      </StyledChartHeader>
+
       <KeyFigureDetails
         description={description}
         keyfigure={keyfigure}
       />
+
     </StyledKeyFigureContainer>
   )
 }

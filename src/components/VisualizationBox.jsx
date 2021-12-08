@@ -5,6 +5,7 @@ import ChartContainer from './ChartContainer'
 import InsightContainer from './InsightContainer'
 import KeyFigureContainer from './KeyFigureContainer'
 import LineChartVis from '../charts/LineChartVis'
+import BarChartVis from '../charts/BarChartVis'
 
 const StyledVisualizationBox = styled.div`
   display: flex;
@@ -54,26 +55,24 @@ export default () => {
   return (
     <StyledVisualizationBox>
 
-      <ChartContainer>
-        <LineChartVis/>
-      </ChartContainer>
+      <ChartContainer
+        title="Meat vs Vegetables sales by time of day"
+        chart={<LineChartVis/>}
+      />
 
       <InsightContainer
         insights={insights}
       />
-
-      <ChartContainer prediction/>
 
       <KeyFigureContainer
         description="Weekend sales as % of total sales"
         keyfigure="75%"
       />
-
-      <InsightContainer
-        insights={insights}
+      <ChartContainer
+        prediction
+        title="Sales by Product Category"
+        chart={<BarChartVis/>}
       />
-
-      <ChartContainer/>
 
     </StyledVisualizationBox>
   )
