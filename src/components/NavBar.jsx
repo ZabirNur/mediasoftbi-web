@@ -5,7 +5,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 const StyledNavBar = styled.div`
   background-color: whitesmoke;
-  height: 50px;
+  /* height: 50px; */
   display: flex;
   gap: 10px;
   align-items: center;

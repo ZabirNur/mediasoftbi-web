@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDatabase } from '@fortawesome/free-solid-svg-icons'
 
 const StyledDataLabel = styled.div`
-  height: 40px;
+  /* height: 40px; */
   display: flex;
   align-items: center;
   gap: 10px;

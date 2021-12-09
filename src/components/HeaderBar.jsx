@@ -56,7 +56,7 @@ const StyledHeaderBar = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 70px;
+  /* height: 70px; */
   padding-left: 20px;
   padding-right: 20px;
   border-bottom: 1px solid silver;
