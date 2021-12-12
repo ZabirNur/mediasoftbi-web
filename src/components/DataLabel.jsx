@@ -10,14 +10,15 @@ const StyledDataLabel = styled.div`
   gap: 10px;
   padding-left: 20px;
   padding-left: 20px;
-  border-bottom: 1px solid silver;
+  border-bottom: ${props => props.border ? "1px solid silver" : "0"};
+  /* border-bottom: 1px solid silver; */
 `
 
-export default () => {
+export default ({label, border=false}) => {
   return (
-    <StyledDataLabel>
+    <StyledDataLabel border={border}>
       <FontAwesomeIcon icon={faDatabase}/>
-      <span>Lavender Sales</span>
+      <span>{label}</span>
     </StyledDataLabel>
   )
 }

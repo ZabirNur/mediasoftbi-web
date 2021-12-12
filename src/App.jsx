@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import HeaderBar from './components/HeaderBar'
 import NavBar from './components/NavBar'
@@ -16,9 +17,14 @@ const StyledApp = styled.div`
 export default () => {
   return (
     <StyledApp>
-      <HeaderBar />
-      <NavBar />
-      <InsightsView/>
+      <BrowserRouter>
+        <HeaderBar />
+        <NavBar />
+        <Routes>
+          <Route path="dataload" element={<DataLoadView/>} />
+          <Route path="insights" element={<InsightsView/>} />
+        </Routes>
+      </BrowserRouter>
     </StyledApp>
   )
 }

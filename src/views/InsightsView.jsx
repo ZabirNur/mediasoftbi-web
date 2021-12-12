@@ -11,7 +11,7 @@ const StyledInsightsView = styled.div`
 export default () => {
   return (
     <StyledInsightsView>
-      <DataLabel/>
+      <DataLabel label="ShopLavender" border={true}/>
       <MainArea/>
     </StyledInsightsView>
   )

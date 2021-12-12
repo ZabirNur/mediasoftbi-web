@@ -1,9 +1,10 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
-const StyledNavBar = styled.div`
+const StyledNavBar = styled.nav`
   background-color: whitesmoke;
   /* height: 50px; */
   display: flex;
@@ -14,18 +15,26 @@ const StyledNavBar = styled.div`
   border-bottom: 1px solid silver;
 `
 
-const NavTabHeader = styled.nav`
+const NavTabHeader = styled(Link)`
   cursor: pointer;
   user-select: none;
+  text-decoration: none;
+  color: inherit;
 `
 
 
 export default () => {
   return (
     <StyledNavBar>
-      <NavTabHeader>Load Data</NavTabHeader>
+      <NavTabHeader to="dataload">
+        Load Data
+      </NavTabHeader>
+
       <FontAwesomeIcon icon={faChevronRight} />
-      <NavTabHeader>Insights</NavTabHeader>
+
+      <NavTabHeader to="insights">
+        Insights
+      </NavTabHeader>
     </StyledNavBar>
   )
 }
