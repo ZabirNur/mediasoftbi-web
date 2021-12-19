@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { useStoreState } from 'easy-peasy'
 
 import DataLabel from '../components/DataLabel'
 import MainArea from '../components/MainArea'
@@ -9,9 +10,10 @@ const StyledInsightsView = styled.div`
 `
 
 export default () => {
+  const dbName = useStoreState((state) => state.dbName)
   return (
     <StyledInsightsView>
-      <DataLabel label="ShopLavender" border={true}/>
+      <DataLabel/>
       <MainArea/>
     </StyledInsightsView>
   )

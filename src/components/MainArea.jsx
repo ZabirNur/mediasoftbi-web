@@ -7,6 +7,7 @@ const StyledMainArea = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
   height: 100%;
+  overflow-y: hidden;
 `
 
 export default () => {

@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-
+import { useStoreState, useStoreActions } from 'easy-peasy'
 import DataLabel from '../components/DataLabel'
 
 const StyledDataLoadView = styled.div`
@@ -33,6 +34,7 @@ const StyledRightColumn = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+  padding-right: 20px;
 `
 
 const StyledDatabaseName = styled.div`
@@ -48,6 +50,7 @@ const StyledTableList = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
+  overflow-y: scroll;
 `
 
 const StyledTableName = styled.li`
@@ -57,6 +60,7 @@ const StyledTableName = styled.li`
   align-items: center;
   padding-left: 10px;
   cursor: pointer;
+  color: ${props => props.isSelected ? "limegreen" : "inherit" };
 
   :hover { 
     background-color: gainsboro;
@@ -73,47 +77,86 @@ const StyledProgressButton = styled.button`
   cursor: pointer;
 `
 
+const TableNameRow = ({tableName, toggleTableSelection, isSelected}) => {
+  return (
+    <StyledTableName
+      onClick={() => toggleTableSelection(tableName)}
+      isSelected={isSelected}
+    >
+      {tableName}
+    </StyledTableName>
+  )
+}
+
+
 export default () => {
+  const serverAddress = useStoreState((state) => state.serverAddress)
+
+  const dbName = useStoreState((state) => state.dbName)
+  const setDbName = useStoreActions((actions) => actions.setDbName)
+
+  const [tableNames, setTableNames] = useState([])
+
+  const selectedTable = useStoreState((state) => state.selectedTableName)
+  const setSelectedTable = useStoreActions((actions) => actions.setSelectedTableName)
+
+  const toggleTableSelection = (tableName) => {
+    if (selectedTable == tableName) {
+      setSelectedTable("")
+    }
+    else {
+      setSelectedTable(tableName)
+    }
+  }
+
+  useEffect(() => {
+    fetch(`${serverAddress}/getDBSummary`)
+            .then(response => response.json())
+            .then(data => {
+              setDbName(data.dbName)
+              setTableNames(data.tables)
+            })
+            .catch(err => {
+              setDbName("Server error")
+            })
+  }, [])
+
   return (
     <StyledDataLoadView>
       <StyledDatabaseInfoContainer>
         <StyledLeftColumn>
           <div>
             <StyledDatabaseName>
-              <DataLabel label="ShopLavender"/>
+              <span>
+                {dbName}
+              </span>
             </StyledDatabaseName>
 
             <StyledTableList>
-              <StyledTableName>
-                sales201801
-              </StyledTableName>
-              <StyledTableName>
-                sales201802
-              </StyledTableName>
-              <StyledTableName>
-                sales201803
-              </StyledTableName>
-              <StyledTableName>
-                Ssummary
-              </StyledTableName>
+              {tableNames.map(tableName => 
+                <TableNameRow
+                  key={tableName.name}
+                  tableName={tableName.name}
+                  toggleTableSelection={toggleTableSelection}
+                  isSelected={tableName.name != "" && tableName.name == selectedTable}
+                />
+              )}
             </StyledTableList>
           </div>
         </StyledLeftColumn>
-
+        
+        {
+          selectedTable &&
+        
         <StyledRightColumn>
           <div>
-            Description
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Mollitia culpa qui suscipit possimus provident temporibus eum,
-            pariatur non nulla, eos sed quidem,
-            dicta impedit excepturi reiciendis aspernatur delectus.
-            Doloremque, quibusdam.
+            {selectedTable}
           </div>
-
           <StyledProgressButton>
             Get Insights
           </StyledProgressButton>
         </StyledRightColumn>
+        }
       </StyledDatabaseInfoContainer>
       
       <StyledFooter>

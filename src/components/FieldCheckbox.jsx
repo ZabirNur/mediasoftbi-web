@@ -14,13 +14,17 @@ const StyledFieldCheckbox = styled.div`
 const StyledCheckbox = styled.input`
   width: 15px;
   height: 15px;
+  cursor: pointer;
 `
 
-export default ({labelText}) => {
+export default ({labelText, checked=false}) => {
   return (
     <StyledFieldCheckbox>
       <label>{labelText}</label>
-      <StyledCheckbox type="checkbox"/>
+      <StyledCheckbox
+        type="checkbox"
+        checked={checked}
+      />
     </StyledFieldCheckbox>
   )
 }
