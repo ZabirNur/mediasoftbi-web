@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { useStoreState } from 'easy-peasy'
+
 import { LineChart, Line } from 'recharts'
 
 import ChartContainer from './ChartContainer'
@@ -16,47 +18,49 @@ const StyledVisualizationBox = styled.div`
 `
 
 
-
-
-const data = [
-  {
-    name: "A",
-    revenue: 1000,
-    expense: 850
-  },
-  {
-    name: "B",
-    revenue: 1400,
-    expense: 660
-  },
-  {
-    name: "C",
-    revenue: 800,
-    expense: 1150
-  },
-  {
-    name: "D",
-    revenue: 1200,
-    expense: 1950
-  },
-  {
-    name: "E",
-    revenue: 650,
-    expense: 150
-  },
-]
-
-const insights = [
-  "Vegetables outsold meat by Tk. 12,300 in total sales amount",
-  "Peak vegetable sales happened at 6:00 PM while peak meat sales happened at 12:00 PM",
-  "Peak sales of vegetables was higher than peak sales of meat by Tk. 6,100"
-]
-
 export default () => {
+
+  const keyfigures = useStoreState((state) => state.reports.keyfigures || [])
+  const barcharts = useStoreState((state) => state.reports.visualizations && state.reports.visualizations.barcharts || [])
+
+  console.log(barcharts)
+
   return (
     <StyledVisualizationBox>
-      
-      <NoInsights/>
+      {
+        keyfigures.map(keyfigure => 
+          <KeyFigureContainer
+            description={keyfigure.description}
+            keyfigure={keyfigure.total}
+            key={keyfigure.description}
+          />)
+      }
+
+      {
+        barcharts.map(barchart =>
+          <ChartContainer
+            title={barchart.description}
+            chart={
+              <BarChartVis
+                data={barchart.data}
+                xAxisKey={barchart.xAxisKey}
+                barKey={barchart.dataKey}
+              />
+            }
+            key={barchart.description}
+          />)
+      }
+
+      {/* <ChartContainer
+        title="Sales by product category"
+        chart={
+          <BarChartVis
+            data={dummydata_Bar}
+            xAxisKey="name"
+            barKey="amount"
+          />
+        }
+      /> */}
 
       {/* <ChartContainer
         title="Meat vs Vegetables sales by time of day"

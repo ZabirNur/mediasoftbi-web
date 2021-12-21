@@ -17,13 +17,14 @@ const StyledCheckbox = styled.input`
   cursor: pointer;
 `
 
-export default ({labelText, checked=false}) => {
+export default ({labelText, checked=false, onChange}) => {
   return (
     <StyledFieldCheckbox>
       <label>{labelText}</label>
       <StyledCheckbox
         type="checkbox"
         checked={checked}
+        onChange={onChange}
       />
     </StyledFieldCheckbox>
   )

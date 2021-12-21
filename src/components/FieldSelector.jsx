@@ -36,27 +36,50 @@ export default () => {
   const selectedTable = useStoreState((state) => state.selectedTableName)
   const tableColumns = useStoreState((state) => state.tableColumns)
   const setTableColumns = useStoreActions((actions) => actions.setTableColumns)
+  const setReports = useStoreActions((actions) => actions.setReports)
+  const selectedColumns = useStoreState((state) => state.selectedTableColumns)
+  const addColumnToSelection = useStoreActions((actions) => actions.addTableColumnToSelection)
+  const removeColumnFromSelection = useStoreActions((actions) => actions.removeTableColumnFromSelection)
 
-  const [selectedColumns, setSelectedColumns] = useState([])
+
 
   const toggleColumnSelection = columnName => {
-    console.log(columnName)
     if (selectedColumns.includes(columnName))
-      setSelectedColumns(selectedColumns.filter(listColumn => listColumn != columnName))
+      removeColumnFromSelection(columnName)
     else
-      setSelectedColumns([...selectedColumns, columnName])
+      addColumnToSelection(columnName)
   }
+
 
   useEffect(() => {
     fetch(`${serverAddress}/getTableColumnNames?tableName=${selectedTable}`)
-            .then(response => response.json())
+            .then(response => {
+              return response.json()
+            })
             .then(data => {
               setTableColumns(data)
             })
-            .catch(err => {
-              console.log("COULD NOT LOAD TABLE COLUMNS")
+            .catch(error => {
+              console.log("COULD NOT LOAD TABLE COLUMNS" + error)
             })
   }, [])
+
+
+  useEffect(() => {
+    fetch(`${serverAddress}/setActiveColumns`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        "tableName": selectedTable,
+        "columnNames": selectedColumns
+      })
+    })
+      .then(response => response.json())
+      .then(data => setReports(data))
+      .catch(err => console.log(err))
+  }, [selectedColumns])
+
+
 
   return (
     <StyledFieldSelector>

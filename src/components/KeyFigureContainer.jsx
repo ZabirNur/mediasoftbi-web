@@ -31,7 +31,7 @@ const StyledKeyFigureHighlight = styled.div`
 const StyledDescription = styled.div``
 
 const StyledKeyFigure = styled.div`
-  font-size: 4rem;
+  font-size: 3rem;
 `
 
 const KeyFigureDetails = ({description, keyfigure}) => {
