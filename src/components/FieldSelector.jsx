@@ -6,8 +6,8 @@ import FieldCheckbox from './FieldCheckbox'
 
 const StyledFieldSelector = styled.div`
   border-right: 1px solid silver;
+  height: 500px;
   overflow-y: scroll;
-  height: 100%;
 `
 
 const StyledFieldLabel = styled.div`

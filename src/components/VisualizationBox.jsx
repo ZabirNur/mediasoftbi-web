@@ -13,6 +13,8 @@ import NoInsights from './NoInsights'
 const StyledVisualizationBox = styled.div`
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 30px;
   padding: 30px;
 `

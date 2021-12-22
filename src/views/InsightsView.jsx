@@ -7,6 +7,7 @@ import MainArea from '../components/MainArea'
 const StyledInsightsView = styled.div`
   display: grid;
   grid-template-rows: 40px auto;
+  overflow-y: hidden;
 `
 
 export default () => {

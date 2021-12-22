@@ -16,7 +16,7 @@ const StyledApp = styled.div`
   height: 100vh;
   display: grid;
   grid-template-rows: 70px 50px auto;
-  overflow-y: scroll;
+  overflow-y: hidden;
 `
 
 
