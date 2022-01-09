@@ -24,6 +24,8 @@ export default () => {
 
   const keyfigures = useStoreState((state) => state.reports.keyfigures || [])
   const barcharts = useStoreState((state) => state.reports.visualizations && state.reports.visualizations.barcharts || [])
+  const linecharts = useStoreState((state) => state.reports.visualizations && state.reports.visualizations.linecharts || [])
+
 
   console.log(barcharts)
 
@@ -53,16 +55,21 @@ export default () => {
           />)
       }
 
-      {/* <ChartContainer
-        title="Sales by product category"
-        chart={
-          <BarChartVis
-            data={dummydata_Bar}
-            xAxisKey="name"
-            barKey="amount"
-          />
-        }
-      /> */}
+      {
+        linecharts.map(linechart =>
+          <ChartContainer
+            title={linechart.description}
+            chart={
+              <BarChartVis
+                data={linechart.data}
+                xAxisKey={linechart.xAxisKey}
+                barKey={linechart.dataKey}
+              />
+            }
+            key={linechart.description}
+          />)
+      }
+
 
       {/* <ChartContainer
         title="Meat vs Vegetables sales by time of day"
