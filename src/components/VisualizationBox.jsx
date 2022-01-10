@@ -9,6 +9,7 @@ import KeyFigureContainer from './KeyFigureContainer'
 import LineChartVis from '../charts/LineChartVis'
 import BarChartVis from '../charts/BarChartVis'
 import NoInsights from './NoInsights'
+import ByProductCategoryPredictionChartContainer from './ByProductCategoryPredictionChartContainer'
 
 const StyledVisualizationBox = styled.div`
   display: flex;
@@ -31,6 +32,9 @@ export default () => {
 
   return (
     <StyledVisualizationBox>
+
+      <ByProductCategoryPredictionChartContainer/>
+
       {
         keyfigures.map(keyfigure => 
           <KeyFigureContainer
