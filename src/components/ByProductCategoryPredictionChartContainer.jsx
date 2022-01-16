@@ -1,7 +1,7 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import FieldCheckbox from './FieldCheckbox'
 import LineChartVis from '../charts/LineChartVis'
-import { LineChart } from 'recharts'
 
 const StyledPredictionContainer = styled.div`
   width: 800px;
@@ -41,7 +41,11 @@ const StyledCategoryChecklist = ({categories}) => {
     <StyledChecklistContainer>
       {
         categories.map(cat => 
-          <FieldCheckbox labelText={cat}/>
+          <FieldCheckbox
+            labelText={cat}
+            checked={true}
+            onChange={() => {}}
+          />
         )
       }
     </StyledChecklistContainer>
@@ -108,15 +112,42 @@ const fakeChartData = [
 ]
 
 export default () => {
+  const [selectedCategories, setSelectedCategories] = useState([])
+  const addCategory = (categoryName) => {
+    if (!selectedCategories.includes(categoryName)) {
+      setSelectedCategories([...selectedCategories, categoryName])
+    }
+  }
+  const removeCategory = (categoryName) => {
+    setSelectedCategories(selectedCategories.filter(element => element != categoryName))
+  }
+  const toggleCategorySelection = (categoryName) => {
+    if (selectedCategories.includes(categoryName)) {
+      removeCategory(categoryName)
+    }
+    else {
+      addCategory(categoryName)
+    }
+  }
+
   return (
     <StyledPredictionContainer>
       <StyledTitleContainer>
         Daily Total Sales by Product Category
       </StyledTitleContainer>
 
-      <StyledCategoryChecklist
-        categories={productCategories}
-      />
+      <StyledChecklistContainer>
+      {
+        productCategories.map(category => 
+          <FieldCheckbox
+            key={category}
+            labelText={category}
+            checked={selectedCategories.includes(category)}
+            onChange={() => {toggleCategorySelection(category)}}
+          />
+        )
+      }
+    </StyledChecklistContainer>
 
       <StyledChartContainer>
         <LineChartVis
