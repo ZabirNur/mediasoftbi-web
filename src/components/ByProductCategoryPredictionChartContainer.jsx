@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useStoreState } from 'easy-peasy'
 import styled from 'styled-components'
 import FieldCheckbox from './FieldCheckbox'
 import LineChartVis from '../charts/LineChartVis'
@@ -52,67 +53,56 @@ const StyledCategoryChecklist = ({categories}) => {
   )
 }
 
-const productCategories = [
-  'Accessories',
-  'Broccoli',
-  'Cranberries',
-  'Duck Meat',
-  'Eggs',
-  'Fresh foods',
-  'Green onions',
-  'Hot foods',
-  'Indian onions',
-  'Jackfruit',
-  'Kiwi fruit',
-  'Leggings'
-]
 
-const fakeChartData = [
-  {
-    "date": 1,
-    "total": 100_000_000
-  },
-  {
-    "date": 2,
-    "total": 350_000_000
-  },
-  {
-    "date": 3,
-    "total": 200_000_000
-  },
-  {
-    "date": 4,
-    "total": 180_000_000
-  },
-  {
-    "date": 5,
-    "total": 125_000_000
-  },
-  {
-    "date": 6,
-    "total": 200_000_000
-  },
-  {
-    "date": 7,
-    "total": 80_000_000
-  },
-  {
-    "date": 8,
-    "total": 160_000_000
-  },
-  {
-    "date": 9,
-    "total": 180_000_000
-  },
-  {
-    "date": 10,
-    "total": 125_000_000
-  },
-  
-]
+const formatChartData = (chartData) => {
+  const formatted = []
+
+  for (let i=0; i<31; ++i) {
+    let formatted_row = {}
+
+    for (let category_data of chartData) {
+      formatted_row[category_data.category] = category_data.amounts[i] || 0
+    }
+
+    formatted.push(formatted_row)
+  }
+
+  return formatted
+}
 
 export default () => {
+  const [productCategories, setProductCategories] = useState([])
   const [selectedCategories, setSelectedCategories] = useState([])
+  const tableName = useStoreState((state) => state.selectedTableName)
+  const serverAddress = useStoreState((state) => state.serverAddress)
+  const [chartData, setChartData] = useState([])
+
+  const setPredictionCharts = (chartData) => {
+    setChartData(formatChartData(chartData))
+  }
+
+  useEffect(() => {
+    fetch(`${serverAddress}/getProductCategories`)
+      .then(response => response.json())
+      .then(data => setProductCategories(data))
+  }, 
+  [])
+
+  useEffect(() => {
+    fetch(`${serverAddress}/selectProductCategoriesForPrediction`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              "tableName": tableName,
+              "categories": selectedCategories
+            })
+          })
+          .then(response => response.json())
+          .then(data => setPredictionCharts(data))
+          .catch(err => console.log(err))
+  },
+  [selectedCategories])
+
   const addCategory = (categoryName) => {
     if (!selectedCategories.includes(categoryName)) {
       setSelectedCategories([...selectedCategories, categoryName])
@@ -151,9 +141,9 @@ export default () => {
 
       <StyledChartContainer>
         <LineChartVis
-          data={fakeChartData}
+          data={chartData}
           xAxisKey="date"
-          lineKey="total"
+          lineKeys={selectedCategories}
           xLabel="Day of month"
           yLabel="Sales"
         />

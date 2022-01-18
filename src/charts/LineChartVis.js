@@ -5,7 +5,7 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Label } 
 const StyledLineChartVis = styled.div`
 `
 
-export default ({data, xAxisKey, lineKey, xLabel="", yLabel=""}) => {
+export default ({data, xAxisKey, lineKeys=[], xLabel="", yLabel=""}) => {
   return (
     <StyledLineChartVis>
       <LineChart width={380} height={300} data={data}
@@ -19,7 +19,16 @@ export default ({data, xAxisKey, lineKey, xLabel="", yLabel=""}) => {
         </YAxis>
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey={lineKey} stroke="#8884d8" />
+
+        {lineKeys.map(lineKey => 
+          <Line
+            type="monotone"
+            dataKey={lineKey}
+            stroke="#8884d8"
+            key={lineKey}
+            />
+        )}
+
       </LineChart>
     </StyledLineChartVis>
   )
