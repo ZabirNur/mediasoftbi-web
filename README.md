@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+## Run the web application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Run `npm run start` on the command line.
 
-## Available Scripts
 
-In the project directory, you can run:
+## Project Structure
 
-### `npm start`
+Main file: `/src/App.jsx`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This is a react project set up with `create-react-app`. The backend server must be running for the app to have any functionality.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The server's URI is set up at `src/state/store.js` in the `model` variable as the `serverAddress` property. This URI is the single *source of truth* for all server calls made throughout the whole application.
 
-### `npm test`
+## File Hierarchy
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Each react page / tab / component is split up into its own file in the `src` folder and split-up into the `views`, `components` and `charts` folders.
 
-### `npm run build`
+The `state` folder contains the `store.js` file which contains all the global state for the application. The state management library is a `easy-peasy` which is built on top of `redux`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Requirements (Summary)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Allow users to **select data** to **view insights and reports** on
+* **Show sales predictions** based on product category
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Select data
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Select sales data within a custom date range
+* Select columns from database tables
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### View insights
 
-## Learn More
+* Show insights and key figures on the columns selected by users
+* Live update insights and key figures based on user's selection of columns
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### View reports
 
-### Code Splitting
+* Show reports on the columns selected by users
+* Live update reports based on the user's selection of columns
+* Allow users to click into the reports to *drill-down* and get more details on the reports and customize some parameters
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### Show Predictions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+* Allow users to select product categories
+* Show a period of past sales and a period of future predictions in a visual format (charts)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Work done -vs- To be done
 
-### Advanced Configuration
+### Done
+ - [x] Project set up with routing, server connection and global state management capabilities
+ - [x] Basic routes and pagination set up for data loading, reporting, insights and predictions
+ - [x] Load database tables from the server
+ - [x] Select tables to view data from and update table selection live
+ - [x] Select columns from the selected table and get reports and insights on certain columns
+ - [x] Update column selection live and get instant updates on reports and insights
+ - [x] Basic predictions page with product category selection (work-in-progress)
+ - [x] Basic prediction chart visualization with both past data and future sales prediction (work-in-progress)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### To be done
+*(As far as current requirements)*
+ - [ ] Allow user to select date range when selecting data to view (instead of monthly database table selection)
+ - [ ] Create logic to get data from multiple monthly database tables and join them according to the selected date range
+ - [ ] Add drill-down and customization options on the reporting UI components
+ - [ ] Re-design the predictions page
+	 - [ ] Show products by bar code instead of category
+	 - [ ] Show a separate chart for each selected product
+	 - [ ] Show past data and prediction data in the same chart
+ - [ ] Add user management screens and forms
