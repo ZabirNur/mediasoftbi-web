@@ -62,7 +62,7 @@ const StyledHeaderBar = styled.header`
   border-bottom: 1px solid silver;
 `
 
-export default () => {
+const HeaderBar = () => {
   return (
     <StyledHeaderBar>
       <ProductName />
@@ -75,3 +75,5 @@ export default () => {
     </StyledHeaderBar>
   )
 }
+
+export default HeaderBar

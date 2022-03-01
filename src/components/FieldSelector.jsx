@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useStoreState, useStoreActions } from 'easy-peasy'
 import styled from 'styled-components'
 
@@ -31,7 +31,7 @@ const StyledFieldCheckboxes = styled.div`
   /*  */
 `
 
-export default () => {
+const FieldSelector = () => {
   const serverAddress = useStoreState((state) => state.serverAddress)
   const selectedTable = useStoreState((state) => state.selectedTableName)
   const tableColumns = useStoreState((state) => state.tableColumns)
@@ -62,7 +62,7 @@ export default () => {
             .catch(error => {
               console.log("COULD NOT LOAD TABLE COLUMNS" + error)
             })
-  }, [])
+  }, [serverAddress, selectedTable, setTableColumns])
 
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default () => {
       .then(response => response.json())
       .then(data => setReports(data))
       .catch(err => console.log(err))
-  }, [selectedColumns])
+  }, [selectedColumns, serverAddress, selectedTable, setReports])
 
 
 
@@ -97,3 +97,5 @@ export default () => {
     </StyledFieldSelector>
   )
 }
+
+export default FieldSelector

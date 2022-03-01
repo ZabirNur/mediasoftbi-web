@@ -27,7 +27,7 @@ const XButton = ({onClick}) => {
   )
 }
 
-export default ({columnName, onXPress}) => {
+const SelectedColumnToken = ({columnName, onXPress}) => {
   return (
     <StyledToken>
       <span>{columnName}</span>
@@ -35,3 +35,5 @@ export default ({columnName, onXPress}) => {
     </StyledToken>
   )
 }
+
+export default SelectedColumnToken

@@ -25,7 +25,7 @@ const StyledChartBody = styled.div`
   align-items: center;
 `
 
-export default ({title, chart, prediction=false}) => {
+const ChartContainer = ({title, chart, prediction=false}) => {
   return (
     <StyledChartContainer prediction={prediction}>
 
@@ -47,3 +47,5 @@ export default ({title, chart, prediction=false}) => {
     </StyledChartContainer>
   )
 }
+
+export default ChartContainer

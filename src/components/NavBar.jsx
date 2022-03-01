@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 const StyledNavBar = styled.nav`
   background-color: whitesmoke;
@@ -22,19 +22,40 @@ const NavTabHeader = styled(Link)`
   color: inherit;
 `
 
+const StyledNavTabLinkContainer = styled.div`
+  width: 100px;
+  height: 100%;
+  border-left: 1px solid silver;
+  border-right: 1px solid silver;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
-export default () => {
+const NavBar = () => {
   return (
     <StyledNavBar>
-      <NavTabHeader to="dataload">
-        Load Data
-      </NavTabHeader>
+      <StyledNavTabLinkContainer>
+        <NavTabHeader to="dataload">
+          Load Data
+        </NavTabHeader>
+      </StyledNavTabLinkContainer>
 
-      <FontAwesomeIcon icon={faChevronRight} />
-
-      <NavTabHeader to="insights">
-        Insights
-      </NavTabHeader>
+      {/* <FontAwesomeIcon icon={faChevronRight} /> */}
+      <StyledNavTabLinkContainer>
+        <NavTabHeader to="insights">
+          Insights
+        </NavTabHeader>
+      </StyledNavTabLinkContainer>
+      
+      <StyledNavTabLinkContainer>
+        <NavTabHeader to="predictions">
+          Predictions
+        </NavTabHeader>
+      </StyledNavTabLinkContainer>
     </StyledNavBar>
   )
 }
+
+export default NavBar

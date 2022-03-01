@@ -37,7 +37,7 @@ const StyledInsightLine = styled.li`
   margin-top: 15px;
 `
 
-export default ({insights}) => {
+const InsightContainer = ({insights}) => {
   return (
     <StyledInsightContainer>
       <StyledInsightsHeader>
@@ -61,3 +61,5 @@ export default ({insights}) => {
     </StyledInsightContainer>
   )
 }
+
+export default InsightContainer

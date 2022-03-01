@@ -1,15 +1,14 @@
 import styled from 'styled-components'
 import { useStoreState } from 'easy-peasy'
 
-import { LineChart, Line } from 'recharts'
+// import { LineChart, Line } from 'recharts'
 
 import ChartContainer from './ChartContainer'
-import InsightContainer from './InsightContainer'
+// import InsightContainer from './InsightContainer'
 import KeyFigureContainer from './KeyFigureContainer'
-import LineChartVis from '../charts/LineChartVis'
+// import LineChartVis from '../charts/LineChartVis'
 import BarChartVis from '../charts/BarChartVis'
-import NoInsights from './NoInsights'
-import ByProductCategoryPredictionChartContainer from './ByProductCategoryPredictionChartContainer'
+// import NoInsights from './NoInsights'
 
 const StyledVisualizationBox = styled.div`
   display: flex;
@@ -21,19 +20,14 @@ const StyledVisualizationBox = styled.div`
 `
 
 
-export default () => {
+const VisualizationBox = () => {
 
   const keyfigures = useStoreState((state) => state.reports.keyfigures || [])
-  const barcharts = useStoreState((state) => state.reports.visualizations && state.reports.visualizations.barcharts || [])
-  const linecharts = useStoreState((state) => state.reports.visualizations && state.reports.visualizations.linecharts || [])
-
-
-  console.log(barcharts)
+  const barcharts = useStoreState((state) => state.reports.visualizations && (state.reports.visualizations.barcharts || []))
+  const linecharts = useStoreState((state) => state.reports.visualizations && (state.reports.visualizations.linecharts || []))
 
   return (
     <StyledVisualizationBox>
-
-      <ByProductCategoryPredictionChartContainer/>
 
       {
         keyfigures.map(keyfigure => 
@@ -98,3 +92,5 @@ export default () => {
     </StyledVisualizationBox>
   )
 }
+
+export default VisualizationBox

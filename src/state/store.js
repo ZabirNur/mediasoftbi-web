@@ -34,7 +34,7 @@ const model = {
     state.selectedTableColumns = [...state.selectedTableColumns, columnNameToAdd]
   }),
   removeTableColumnFromSelection: action((state, columnNameToRemove) => {
-    state.selectedTableColumns = state.selectedTableColumns.filter(columnName => columnName != columnNameToRemove)
+    state.selectedTableColumns = state.selectedTableColumns.filter(columnName => columnName !== columnNameToRemove)
   }),
 
 

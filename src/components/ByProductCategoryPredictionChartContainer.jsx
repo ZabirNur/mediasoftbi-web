@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { useStoreState } from 'easy-peasy'
 import styled from 'styled-components'
 import FieldCheckbox from './FieldCheckbox'
-import LineChartVis from '../charts/LineChartVis'
+import PredictionChartVis from '../charts/PredictionChartVis'
+import { ReferenceLine } from 'recharts'
 
 const StyledPredictionContainer = styled.div`
   width: 800px;
@@ -33,44 +34,30 @@ const StyledChecklistContainer = styled.div`
 const StyledChartContainer = styled.div`
   grid-area: chart;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `
 
-const StyledCategoryChecklist = ({categories}) => {
-  return (
-    <StyledChecklistContainer>
-      {
-        categories.map(cat => 
-          <FieldCheckbox
-            labelText={cat}
-            checked={true}
-            onChange={() => {}}
-          />
-        )
-      }
-    </StyledChecklistContainer>
-  )
-}
+// const StyledCategoryChecklist = ({categories}) => {
+//   return (
+//     <StyledChecklistContainer>
+//       {
+//         categories.map(cat => 
+//           <FieldCheckbox
+//             labelText={cat}
+//             checked={true}
+//             onChange={() => {}}
+//           />
+//         )
+//       }
+//     </StyledChecklistContainer>
+//   )
+// }
 
 
-const formatChartData = (chartData) => {
-  const formatted = []
 
-  for (let i=0; i<31; ++i) {
-    let formatted_row = {}
-
-    for (let category_data of chartData) {
-      formatted_row[category_data.category] = category_data.amounts[i] || 0
-    }
-
-    formatted.push(formatted_row)
-  }
-
-  return formatted
-}
-
-export default () => {
+const ByProductCategoryPredictionChartContainer = () => {
   const [productCategories, setProductCategories] = useState([])
   const [selectedCategories, setSelectedCategories] = useState([])
   const tableName = useStoreState((state) => state.selectedTableName)
@@ -78,15 +65,18 @@ export default () => {
   const [chartData, setChartData] = useState([])
 
   const setPredictionCharts = (chartData) => {
-    setChartData(formatChartData(chartData))
+    setChartData(chartData)
   }
 
   useEffect(() => {
     fetch(`${serverAddress}/getProductCategories`)
       .then(response => response.json())
-      .then(data => setProductCategories(data))
+      .then(data => {
+        data.sort()
+        setProductCategories(data)
+      })
   }, 
-  [])
+  [serverAddress])
 
   useEffect(() => {
     fetch(`${serverAddress}/selectProductCategoriesForPrediction`, {
@@ -101,7 +91,7 @@ export default () => {
           .then(data => setPredictionCharts(data))
           .catch(err => console.log(err))
   },
-  [selectedCategories])
+  [selectedCategories, serverAddress, tableName])
 
   const addCategory = (categoryName) => {
     if (!selectedCategories.includes(categoryName)) {
@@ -109,7 +99,7 @@ export default () => {
     }
   }
   const removeCategory = (categoryName) => {
-    setSelectedCategories(selectedCategories.filter(element => element != categoryName))
+    setSelectedCategories(selectedCategories.filter(element => element !== categoryName))
   }
   const toggleCategorySelection = (categoryName) => {
     if (selectedCategories.includes(categoryName)) {
@@ -137,17 +127,23 @@ export default () => {
           />
         )
       }
-    </StyledChecklistContainer>
+      </StyledChecklistContainer>
 
       <StyledChartContainer>
-        <LineChartVis
+        <p>Daily sales prediction</p>
+        <PredictionChartVis
           data={chartData}
           xAxisKey="date"
           lineKeys={selectedCategories}
           xLabel="Day of month"
           yLabel="Sales"
-        />
+        >
+          {/* TODO: make the x value dynamic - current date in DD/MM format */}
+          <ReferenceLine x="28/02" stroke="green" label="Today"/> 
+        </PredictionChartVis>
       </StyledChartContainer>
     </StyledPredictionContainer>
   )
 }
+
+export default ByProductCategoryPredictionChartContainer

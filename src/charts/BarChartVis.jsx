@@ -5,7 +5,7 @@ import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'rec
 const StyledBarChartVis = styled.div`
 `
 
-export default ({data, xAxisKey, barKey}) => {
+const BarChartVis = ({data, xAxisKey, barKey}) => {
   return (
     <StyledBarChartVis>
       <BarChart width={380} height={300} data={data}>
@@ -19,3 +19,5 @@ export default ({data, xAxisKey, barKey}) => {
     </StyledBarChartVis>
   )
 }
+
+export default BarChartVis

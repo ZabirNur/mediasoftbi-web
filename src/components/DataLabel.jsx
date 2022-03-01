@@ -31,7 +31,7 @@ const LabelWithIcon = ({label, icon}) => {
   )
 }
 
-export default () => {
+const DataLabel = () => {
   const dbName = useStoreState((state) => state.dbName)
   const selectedTableName = useStoreState((state) => state.selectedTableName)
   const selectedTableColumns = useStoreState((state) => state.selectedTableColumns)
@@ -56,3 +56,5 @@ export default () => {
     </StyledDataLabel>
   )
 }
+
+export default DataLabel

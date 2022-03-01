@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useStoreState, useStoreActions } from 'easy-peasy'
-import DataLabel from '../components/DataLabel'
+// import DataLabel from '../components/DataLabel'
+import { useNavigate } from 'react-router-dom'
 
 const StyledDataLoadView = styled.div`
   display: grid;
@@ -89,7 +90,7 @@ const TableNameRow = ({tableName, toggleTableSelection, isSelected}) => {
 }
 
 
-export default () => {
+const DataLoadView = () => {
   const serverAddress = useStoreState((state) => state.serverAddress)
 
   const dbName = useStoreState((state) => state.dbName)
@@ -100,8 +101,10 @@ export default () => {
   const selectedTable = useStoreState((state) => state.selectedTableName)
   const setSelectedTable = useStoreActions((actions) => actions.setSelectedTableName)
 
+  const navigate = useNavigate()
+
   const toggleTableSelection = (tableName) => {
-    if (selectedTable == tableName) {
+    if (selectedTable === tableName) {
       setSelectedTable("")
     }
     else {
@@ -119,7 +122,7 @@ export default () => {
             .catch(err => {
               setDbName("Server error")
             })
-  }, [])
+  }, [serverAddress, setDbName])
 
   return (
     <StyledDataLoadView>
@@ -138,7 +141,7 @@ export default () => {
                   key={tableName.name}
                   tableName={tableName.name}
                   toggleTableSelection={toggleTableSelection}
-                  isSelected={tableName.name != "" && tableName.name == selectedTable}
+                  isSelected={tableName.name !== "" && tableName.name === selectedTable}
                 />
               )}
             </StyledTableList>
@@ -152,7 +155,7 @@ export default () => {
           <div>
             {selectedTable}
           </div>
-          <StyledProgressButton>
+          <StyledProgressButton onClick={() => navigate("/insights")}>
             Get Insights
           </StyledProgressButton>
         </StyledRightColumn>
@@ -165,3 +168,5 @@ export default () => {
     </StyledDataLoadView>
   )
 }
+
+export default DataLoadView

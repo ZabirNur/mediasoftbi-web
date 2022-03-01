@@ -10,12 +10,26 @@ const StyledInsightsView = styled.div`
   overflow-y: hidden;
 `
 
-export default () => {
-  const dbName = useStoreState((state) => state.dbName)
+const InsightsView = () => {
+  // const dbName = useStoreState(state => state.dbName)
+  const tableName = useStoreState(state => state.selectedTableName)
+  
   return (
     <StyledInsightsView>
-      <DataLabel/>
-      <MainArea/>
+      {
+        tableName === "" 
+        ?
+          <p>
+            Select tables from "Load Data" tab
+          </p>
+        :
+          <>
+            <DataLabel/>
+            <MainArea/>
+          </>
+      }
     </StyledInsightsView>
   )
 }
+
+export default InsightsView

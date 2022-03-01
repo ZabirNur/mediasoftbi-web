@@ -9,7 +9,7 @@ const StyledMainArea = styled.div`
   overflow-y: scroll;
 `
 
-export default () => {
+const MainArea = () => {
   return (
     <StyledMainArea>
       <FieldSelector />
@@ -17,3 +17,5 @@ export default () => {
     </StyledMainArea>
   )
 }
+
+export default MainArea

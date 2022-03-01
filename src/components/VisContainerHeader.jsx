@@ -5,10 +5,12 @@ const StyledHeader = styled.span`
   letter-spacing: 2px;
 `
 
-export default ({title}) => {
+const VisContainerHeader = ({title}) => {
   return (
     <StyledHeader>
       {title}
     </StyledHeader>
   )
 }
+
+export default VisContainerHeader

@@ -17,7 +17,7 @@ const StyledCheckbox = styled.input`
   cursor: pointer;
 `
 
-export default ({labelText, checked=false, onChange}) => {
+const FieldCheckbox = ({labelText, checked=false, onChange}) => {
   return (
     <StyledFieldCheckbox>
       <label>{labelText}</label>
@@ -29,3 +29,5 @@ export default ({labelText, checked=false, onChange}) => {
     </StyledFieldCheckbox>
   )
 }
+
+export default FieldCheckbox

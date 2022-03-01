@@ -47,7 +47,7 @@ const KeyFigureDetails = ({description, keyfigure}) => {
   )
 }
 
-export default ({description, keyfigure}) => {
+const KeyFigureContainer = ({description, keyfigure}) => {
   return (
     <StyledKeyFigureContainer>
       
@@ -63,3 +63,5 @@ export default ({description, keyfigure}) => {
     </StyledKeyFigureContainer>
   )
 }
+
+export default KeyFigureContainer
